@@ -1,0 +1,21 @@
+.Take-note {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 600px;
+    height: 45px;
+    flex-grow: 1;
+    margin-top: 20px;
+}
+
+.Create-note {
+    width: 600px;
+    flex-grow: 1;
+    margin-top: 20px;
+}
+
+.Note-template {
+    width: 250px;
+    height: 150px;
+    margin: 10px;
+}

@@ -1,0 +1,21 @@
+.ipfields {
+    width: 100%;
+}
+
+.login-footer {
+    font-size: 14px;
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.rfl {
+    display: flex;
+    justify-content: space-between;
+}
+
+.pwdEye {
+    margin-top: 40px;
+    max-width: 30px;
+    max-height: 20px;
+}

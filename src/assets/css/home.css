@@ -1,0 +1,64 @@
+.Navbar {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.Title-heading {
+    margin-right: 20px;
+    color: black !important;
+    align-self: center;
+}
+
+.Navbar-icons {
+    display: flex;
+    flex-direction: row;
+}
+
+.Refresh-list {
+    flex-grow: 1;
+    margin-left: 15px;
+    margin-right: 10px;
+}
+
+.Profile-apps {
+    flex-grow: 2;
+    margin-left: 10px;
+}
+
+.Profile-menu {
+    display: flex;
+    flex-direction: row;
+    padding: 20px;
+    justify-content: space-between;
+    width: 300px;
+    background-color: rgb(247, 247, 247);
+}
+
+.Profile-menu-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding-top: 10px;
+}
+
+.Profile-pic {
+    max-width: 95px;
+    max-height: 95px;      
+}
+
+.Dash-with-side {
+    display: flex;
+    margin-top: 75px;
+    margin-left: 370px;
+    margin-right: 90px;
+    flex-direction: column
+}
+
+.Dash-wo-side {
+    display: flex;
+    margin-top: 75px;
+    margin-left: 230px;
+    margin-right: 230px;
+    flex-direction: column
+}
