@@ -33,6 +33,10 @@ class TestDashboard extends Component {
           <Notetemplate />
           <Notetemplate />
           <Notetemplate />
+          <Notetemplate />
+          <Notetemplate />
+          <Notetemplate />
+          <Notetemplate />
         </div>
       </div>
     );

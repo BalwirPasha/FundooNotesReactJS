@@ -14,8 +14,23 @@
     margin-top: 20px;
 }
 
+.Create-note-icon-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
 .Note-template {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow-wrap: break-word;
     width: 250px;
-    height: 150px;
     margin: 10px;
+}
+
+.Note-template-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
 }

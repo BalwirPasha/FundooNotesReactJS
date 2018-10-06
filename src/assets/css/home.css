@@ -42,11 +42,6 @@
     padding-top: 10px;
 }
 
-.Profile-pic {
-    max-width: 95px;
-    max-height: 95px;      
-}
-
 .Dash-with-side {
     display: flex;
     margin-top: 75px;
