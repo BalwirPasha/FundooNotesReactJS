@@ -29,8 +29,34 @@
     margin: 10px;
 }
 
+.Note-template-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow-wrap: break-word;
+    width: 600px;
+    margin: 10px;
+}
+
 .Note-template-footer {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    visibility: hidden;
+}
+
+.Note-template-footer-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    visibility: hidden;
+    width: 250px;
+}
+
+.Note-template:hover .Note-template-footer {
+    visibility: visible;
+}
+
+.Note-template-list:hover .Note-template-footer-list {
+    visibility: visible;
 }

@@ -18,7 +18,7 @@ class Search extends Component {
         <Input
           disableUnderline
           placeholder="Search..."
-          style={{ padding: '10px' }}
+          style={{ padding: '10px', width:'100%' }}
         >
         </Input>
       </div>

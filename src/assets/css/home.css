@@ -47,7 +47,8 @@
     margin-top: 75px;
     margin-left: 370px;
     margin-right: 90px;
-    flex-direction: column
+    flex-direction: column;
+    align-self: center;
 }
 
 .Dash-wo-side {
@@ -55,5 +56,6 @@
     margin-top: 75px;
     margin-left: 230px;
     margin-right: 230px;
-    flex-direction: column
+    flex-direction: column;
+    justify-content: center;
 }

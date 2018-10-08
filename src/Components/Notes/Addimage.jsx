@@ -1,5 +1,5 @@
+import { IconButton, Tooltip } from '@material-ui/core';
 import React, { Component } from 'react';
-import { IconButton } from '@material-ui/core';
 import image from '../../assets/icons/image.svg';
 
 class Addimage extends Component {
@@ -16,9 +16,11 @@ class Addimage extends Component {
   render() {
     return (
       <div>
+        <Tooltip title="Add image">          
           <IconButton onClick={this.addImage}>
               <img src={image} alt="addimage"/>
           </IconButton>
+        </Tooltip>
       </div>
     );
   }

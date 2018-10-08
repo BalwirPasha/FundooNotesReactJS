@@ -42,6 +42,7 @@ class Navbar extends Component {
     this.setState({
       list: !this.state.list
     });
+    this.props.toggleListView();
   }
 
   render() {

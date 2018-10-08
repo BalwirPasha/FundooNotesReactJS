@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { IconButton } from '@material-ui/core';
+import { IconButton, Tooltip } from '@material-ui/core';
 import collaborator from '../../assets/icons/collaborator.svg';
 
 class Collaborator extends Component {
@@ -10,15 +10,17 @@ class Collaborator extends Component {
   }
 
   addCollaborator = () => {
-    
+
   }
 
   render() {
     return (
       <div>
+        <Tooltip title="Collaborator">
           <IconButton onClick={this.addCollaborator}>
-              <img src={collaborator} alt="collaborator"/>
+            <img src={collaborator} alt="collaborator" />
           </IconButton>
+        </Tooltip>
       </div>
     );
   }

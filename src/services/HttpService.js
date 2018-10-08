@@ -54,12 +54,12 @@ function deleteReq(url, header) {
 
 const headerUrl = {
   'Content-type': 'application/x-www-form-urlencoded',
-  'Authorization': localStorage.getItem('fundoo_token')
+  'Authorization': JSON.parse(localStorage.getItem('fundooUser')).token
 }
 
 const headerJsonWithToken = {
   'Content-type': 'application/json',
-  'Authorization': localStorage.getItem('fundoo_token')
+  'Authorization': JSON.parse(localStorage.getItem('fundooUser')).token
 }
 
 const headerForm = {

@@ -37,7 +37,7 @@ class Sidebar extends Component {
   render() {
     const testLabels = [];
     for(let i=0; i<5; i++){
-      testLabels.push(<ListItem button>
+      testLabels.push(<ListItem key={i} button>
         <ListItemIcon>
           <img src={label} alt="label" />
         </ListItemIcon>

@@ -4,11 +4,13 @@ import Navbar from './Navbar';
 import Sidebar from './Sidebar';
 import TestDashboard from './TestDashboard';
 
+
 class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      unauthorizedAccess: false
+      unauthorizedAccess: false,
+      data : []
     };
   }
 
@@ -25,14 +27,18 @@ class Home extends Component {
     this.refs.dashboard.toggleCss();
   }
 
+  toggleListView = () => {
+    this.refs.dashboard.toggleListView();
+  }
+
   render() {
     if (this.state.unauthorizedAccess === true)
       return <Redirect to='/login' />
     return (
       <div>
-        <Navbar toggleDrawer={this.toggle}></Navbar>
+        <Navbar toggleDrawer={this.toggle} toggleListView={this.toggleListView}></Navbar>
         <Sidebar ref="sidebar"></Sidebar>
-        <TestDashboard ref="dashboard"></TestDashboard>
+        <TestDashboard ref="dashboard" notes={this.state.data}></TestDashboard>
       </div>
     );
   }

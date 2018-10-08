@@ -17,8 +17,11 @@ class Createnote extends Component {
     super(props);
     this.state = {
       createNote: false,
+      title: '',
+      description: '',
       color: '#fff',
-      pin: false
+      pin: false,
+      archive: false
     };
   }
 
@@ -26,6 +29,9 @@ class Createnote extends Component {
     this.setState({
       createNote: !this.state.createNote
     })
+    if(this.state.title !== '' || this.state.description !== ''){
+      console.log('create note api');
+    }
   }
 
   changeColor = (color) => {
@@ -40,6 +46,18 @@ class Createnote extends Component {
     })
   }
 
+  toggleArchive = () => {
+    this.setState({
+      archive: !this.state.archive
+    })
+  }
+
+  handleInput = (event) => {
+    this.setState({
+      [event.target.name]: event.target.value
+    })
+  }
+
   render() {
     if (!this.state.createNote)
       return <Takenote toggle={this.toggleCreateNote} />
@@ -48,11 +66,13 @@ class Createnote extends Component {
         <Card style={{ backgroundColor: [this.state.color] }} className="Create-note Margin-auto">
           <div>
             <div style={{ marginBottom: '10px' }}>
-              <Input placeholder="Title" disableUnderline={true} style={{ width: '80%', margin: '10px' }}></Input>
+              <Input name='title' placeholder="Title" onChange={this.handleInput}
+                disableUnderline={true} style={{ width: '80%', margin: '10px' }}></Input>
               <div style={{ float: 'right', margin: '' }}>
                 <Pinnote togglePin={this.togglePin} />
               </div>
-              <Input placeholder="Take a note..." disableUnderline={true} style={{ width: '100%', margin: '0px 10px' }} />
+              <Input name='description' placeholder="Take a note..." onChange={this.handleInput}
+                disableUnderline={true} style={{ width: '100%', margin: '0px 10px' }} />
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
               <div className="Create-note-icon-footer">
@@ -60,7 +80,7 @@ class Createnote extends Component {
                 <Collaborator />
                 <Colournote changeColor={this.changeColor} />
                 <Addimage />
-                <Archivenote />
+                <Archivenote toggleArchive={this.toggleArchive} />
                 <IconButton>
                   <img src={more} alt="menu" />
                 </IconButton>
