@@ -1,14 +1,14 @@
 import { Avatar, createMuiTheme, IconButton, Menu, MuiThemeProvider, Tooltip } from '@material-ui/core';
 import React, { Component } from 'react';
 import colour from '../../assets/icons/colour.svg';
+import { headerUrl, putParam } from '../../services/HttpService';
 
 const theme = createMuiTheme({
   overrides: {
     MuiMenu: {
       paper: {
-        height: '110px',
         width: '125px'
-      },
+      }
     }
   }
 });
@@ -42,13 +42,21 @@ class Colournote extends Component {
   }
 
   addColour = (color) => {
-    console.log(color);
-    this.props.changeColor(color);
-  }
-
-  changeColor = (color) => {
-    //color note api
-    console.log(color);
+    if (this.props.note === undefined) {
+      this.props.changeCreateNoteColor(color);
+    } else {
+      const params = {
+        noteId: this.props.note.noteId,
+        color: color
+      }
+      putParam('http://localhost:8080/note/colornote', params, headerUrl)
+        .then(res => {
+          this.props.changeColor(color);
+        })
+        .catch(err => {
+          console.log(err.response);
+        });
+    }
   }
 
   render() {

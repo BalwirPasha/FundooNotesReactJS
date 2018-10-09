@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { IconButton, Tooltip } from '@material-ui/core';
 import pin from '../../assets/icons/pin.svg';
 import unpin from '../../assets/icons/unpin.svg';
+import { putParam, headerUrl } from '../../services/HttpService';
 
 class Pinnote extends Component {
   constructor(props) {
@@ -11,15 +12,21 @@ class Pinnote extends Component {
     };
   }
 
-  togglePin = () => {
-    this.setState({
-      isPinned: !this.state.isPinned
-    });
+  togglePin = () => {    
     this.props.togglePin();
   }
 
-  pinNote = () => {
-    console.log('pin note api');
+  pinNote = (note) => {
+    const param = { noteId : note.noteId};
+    putParam('http://localhost:8080/note/pinnote', param, headerUrl)
+      .then(res => {
+        this.setState({
+          isPinned: !this.state.isPinned
+        });
+      })
+      .catch(err => {
+        console.log(err.response);        
+      })
   }
 
   componentDidMount() {

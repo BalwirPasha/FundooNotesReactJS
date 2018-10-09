@@ -30,7 +30,7 @@ class TestDashboard extends Component {
       .then(res => {
         this.setState({
           notes: res.data.map((note, index) => {
-            return <Notetemplate ref={notetemplate => this.notetemplate[index] = notetemplate} key={index} note={note} />
+            return <Notetemplate ref={notetemplate => this.notetemplate[index] = notetemplate} key={note.noteId} note={note} />
           })
         });
       })
@@ -39,14 +39,23 @@ class TestDashboard extends Component {
       });
   }
 
+  noteCreated = (note) => {
+    console.log(note);
+    let notesArr = this.state.notes;
+    notesArr.push(<Notetemplate ref={notetemplate => this.notetemplate.push(notetemplate)} key={note.noteId} note={note} />)
+    this.setState({
+      notes: notesArr
+    })
+  }
+
   render() {
     return (
       <div className={this.state.isSidebarOpen ? "Dash-with-side" : "Dash-wo-side"}>
-        <Createnote />
+        <Createnote noteCreated={this.noteCreated} />
         <div>
           <h2>This is test attempt to check dashboard's response w.r.t sidebar toggle.</h2>
         </div>
-        <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent:'center' }}>
+        <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
           {this.state.notes}
         </div>
       </div>

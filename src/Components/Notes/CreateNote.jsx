@@ -11,6 +11,7 @@ import Collaborator from './Collaborator';
 import Colournote from './Colournote';
 import Pinnote from './Pinnote';
 import Reminder from './Reminder';
+import { postData, headerJsonWithToken } from '../../services/HttpService';
 
 class Createnote extends Component {
   constructor(props) {
@@ -28,10 +29,36 @@ class Createnote extends Component {
   toggleCreateNote = () => {
     this.setState({
       createNote: !this.state.createNote
-    })
-    if(this.state.title !== '' || this.state.description !== ''){
+    });
+    if (this.state.title !== '' || this.state.description !== '') {
       console.log('create note api');
+      const note = {
+        title: this.state.title,
+        description: this.state.description,
+        color: this.state.color,
+        pin: this.state.pin,
+        archive: this.state.archive
+      }
+      postData('http://localhost:8080/note/createnote', note, headerJsonWithToken)
+        .then(res => {
+          console.log(res.data);
+          this.props.noteCreated(res.data);
+        })
+        .catch(err => {
+          console.log(err.response);
+        })
     }
+    this.resetState();
+  }
+
+  resetState = () => {
+    this.setState({
+      title: '',
+      description: '',
+      color: '#fff',
+      pin: false,
+      archive: false
+    });
   }
 
   changeColor = (color) => {
@@ -66,19 +93,19 @@ class Createnote extends Component {
         <Card style={{ backgroundColor: [this.state.color] }} className="Create-note Margin-auto">
           <div>
             <div style={{ marginBottom: '10px' }}>
-              <Input name='title' placeholder="Title" onChange={this.handleInput}
-                disableUnderline={true} style={{ width: '80%', margin: '10px' }}></Input>
+              <Input name='title' placeholder="Title" onChange={this.handleInput} multiline={true}
+                disableUnderline={true} style={{ width: '89%', margin: '10px' }}></Input>
               <div style={{ float: 'right', margin: '' }}>
                 <Pinnote togglePin={this.togglePin} />
               </div>
               <Input name='description' placeholder="Take a note..." onChange={this.handleInput}
-                disableUnderline={true} style={{ width: '100%', margin: '0px 10px' }} />
+                multiline={true} disableUnderline={true} style={{ width: '100%', margin: '0px 10px' }} />
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
               <div className="Create-note-icon-footer">
                 <Reminder />
                 <Collaborator />
-                <Colournote changeColor={this.changeColor} />
+                <Colournote changeCreateNoteColor={this.changeColor} />
                 <Addimage />
                 <Archivenote toggleArchive={this.toggleArchive} />
                 <IconButton>

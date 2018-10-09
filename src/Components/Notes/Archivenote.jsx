@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { IconButton, Tooltip } from '@material-ui/core';
 import archive from '../../assets/icons/archive.svg';
 import unarchive from '../../assets/icons/unarchive.svg';
+import { putParam, headerUrl } from '../../services/HttpService';
 
 class Archivenote extends Component {
   constructor(props) {
@@ -20,14 +21,21 @@ class Archivenote extends Component {
   }
 
   toggleArchive = () => {
-    this.setState({
-      archive: !this.state.archive
-    });
     this.props.toggleArchive();
   }
 
   archiveNote = () => {
     console.log('archive api');
+    const param = { noteId : this.props.note.noteId}
+    putParam('http://localhost:8080/note/archivenote', param, headerUrl)
+      .then(res => {
+        this.setState({
+          archive: !this.state.archive
+        });
+      })
+      .catch(err => {
+        console.log(err.response);        
+      })
   }
 
   render() {
@@ -35,7 +43,7 @@ class Archivenote extends Component {
       <div>
         <Tooltip title={this.state.archive ? 'Unarchive' : 'Archive'}>
           <IconButton onClick={this.toggleArchive}>
-            <img src={this.state.archive ? archive : unarchive} alt="pin" />
+            <img src={this.state.archive ? unarchive : archive} alt="pin" />
           </IconButton>
         </Tooltip>
       </div>

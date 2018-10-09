@@ -14,6 +14,7 @@ class Reminder extends Component {
   }
 
   render() {
+    console.log(this.props.stateTest);    
     return (
       <div>
         <Tooltip title="Remind me">

@@ -1,4 +1,4 @@
-import { Card, IconButton, Menu, createMuiTheme, MuiThemeProvider } from '@material-ui/core';
+import { Card, createMuiTheme, IconButton, Menu, MuiThemeProvider, ClickAwayListener } from '@material-ui/core';
 import React, { Component } from 'react';
 import '../../assets/css/note.css';
 import more from '../../assets/icons/more.svg';
@@ -6,10 +6,10 @@ import Addimage from './Addimage';
 import Archivenote from './Archivenote';
 import Collaborator from './Collaborator';
 import Colournote from './Colournote';
-import Pinnote from './Pinnote';
-import Reminder from './Reminder';
 import Deletenote from './Deletenote';
 import Notedialog from './Notedialog';
+import Pinnote from './Pinnote';
+import Reminder from './Reminder';
 
 const theme = createMuiTheme({
   overrides: {
@@ -27,14 +27,16 @@ class Notetemplate extends Component {
     this.state = {
       isList: false,
       color: '#fff',
-      openDialog: false,
       moreMenu: false,
-      anchorEl: null
+      anchorEl: null,
+      stateTest : 614316,
     };
   }
 
   componentDidMount() {
     this.setState({
+      title: this.props.note.title,
+      description: this.props.note.description,
       color: this.props.note.color
     });
   }
@@ -42,12 +44,11 @@ class Notetemplate extends Component {
   changeColor = (color) => {
     this.setState({
       color: color
-    })
-    this.refs.colornote.changeColor(color);
+    });
   }
 
   togglePin = () => {
-    this.refs.pinnote.pinNote();
+    this.refs.pinnote.pinNote(this.props.note);
   }
 
   toggleArchive = () => {
@@ -59,6 +60,14 @@ class Notetemplate extends Component {
       isList: !this.state.isList
     })
     console.log('list');
+  }
+
+  updateTemplate = (newNote) => {
+    this.setState({
+      title: newNote.title,
+      description: newNote.description,
+      color: newNote.color
+    })
   }
 
   openMore = (event) => {
@@ -76,39 +85,42 @@ class Notetemplate extends Component {
   }
 
   openDialog = () => {
-    this.setState({
-      openDialog: true
-    })
+    this.refs.notedialog.openDialog();
   }
 
-  onDialogClose = () => {
+  closeDialog = () => {
+    this.refs.notedialog.closeDialog();
+  }
+
+  changeState = () => {
+    console.log('state');    
     this.setState({
-      openDialog: false
+      stateTest: Math.random()
     })
   }
 
   render() {
     return (
       <MuiThemeProvider theme={theme}>
-        <div>
-          <Card onClick={this.openDialog} style={{ backgroundColor: [this.state.color] }} className={this.state.isList ? 'Note-template-list' : 'Note-template'}>
-            <div style={{ margin: '0px 10px' }}>
+        <div onClick={this.changeState}>
+          <Card style={{ backgroundColor: [this.state.color] }} className={this.state.isList ? 'Note-template-list' : 'Note-template'}>
+            <div style={{ margin: '0px 10px' }} onClick={this.openDialog}>
               <div style={{ float: 'right' }}>
                 <Pinnote ref="pinnote" togglePin={this.togglePin} note={this.props.note} />
               </div>
-              <p>
+              <p onClick={this.openDialog}>
                 <strong>
-                  {this.props.note.title}
+                  {this.state.title}
                 </strong>
               </p>
-              <p style={{ fontFamily: 'Roboto Slab' }}>
-                {this.props.note.description}
+              <p onClick={this.openDialog} style={{ fontFamily: 'Roboto Slab' }}>
+                {this.state.description}
               </p>
             </div>
             <div className={this.state.isList ? 'Note-template-footer-list' : 'Note-template-footer'}>
-              <Reminder />
+              <Reminder stateTest={this.state.stateTest} />
               <Collaborator />
-              <Colournote ref="colornote" changeColor={this.changeColor} note={this.props.note} />
+              <Colournote changeColor={this.changeColor} note={this.props.note} />
               <Addimage />
               <Archivenote ref="archivenote" toggleArchive={this.toggleArchive} note={this.props.note} />
               <IconButton onClick={this.openMore}>
@@ -123,8 +135,10 @@ class Notetemplate extends Component {
               </Menu>
             </div>
           </Card>
-          <Notedialog open={this.state.openDialog} onClose={this.onDialogClose}/>
         </div>
+        <ClickAwayListener onClickAway={this.closeDialog}>
+          <Notedialog ref="notedialog" updateTemplate={this.updateTemplate} note={this.props.note} />
+        </ClickAwayListener>
       </MuiThemeProvider>
     );
   }
