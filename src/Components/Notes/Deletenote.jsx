@@ -1,6 +1,7 @@
 import { IconButton, Tooltip } from '@material-ui/core';
 import React, { Component } from 'react';
 import trash from '../../assets/icons/delete.svg';
+import {deleteReq, headerUrl} from '../../services/HttpService';
 
 class Deletenote extends Component {
   constructor(props) {
@@ -11,7 +12,16 @@ class Deletenote extends Component {
   }
 
   deleteNote = () => {
-    console.log('delete note api');    
+    // const header = headerUrl();
+    // deleteReq('http://localhost:8080/note/deletenote/'+this.props.note.noteId, header)
+    //   .then(res => {
+    //     this.props.noteDeleted();
+    //   })
+    //   .catch(err => {
+    //     console.log(err.response);        
+    //   });
+      this.props.noteDeleted();
+
   }
 
   render() {

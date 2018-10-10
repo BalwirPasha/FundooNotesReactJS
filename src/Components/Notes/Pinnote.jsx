@@ -18,7 +18,8 @@ class Pinnote extends Component {
 
   pinNote = (note) => {
     const param = { noteId : note.noteId};
-    putParam('http://localhost:8080/note/pinnote', param, headerUrl)
+    const header = headerUrl();
+    putParam('http://localhost:8080/note/pinnote', param, header)
       .then(res => {
         this.setState({
           isPinned: !this.state.isPinned

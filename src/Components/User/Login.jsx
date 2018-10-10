@@ -46,7 +46,7 @@ class Login extends Component {
     this.fieldErr = true;
   }
 
-  login() {
+  login = () => {
     const data = {
       email: this.state.email,
       password: this.state.password
@@ -54,7 +54,6 @@ class Login extends Component {
     postData('http://localhost:8080/user/login', data, headerJson)
       .then((res) => {
         localStorage.setItem("fundooUser", JSON.stringify(res.data));
-        console.log(res.data);
         this.setState({
           loginSuccess : true
         })

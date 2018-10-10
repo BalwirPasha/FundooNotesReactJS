@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Dialog, Input, IconButton, Button, Menu } from '@material-ui/core';
+import { Dialog, Input, IconButton, Button, Menu, Typography } from '@material-ui/core';
 import Addimage from './Addimage';
 import Archivenote from './Archivenote';
 import Collaborator from './Collaborator';
@@ -50,7 +50,8 @@ class Notedialog extends Component {
     }
     if (this.state.title !== this.props.note.title ||
       this.state.description !== this.props.note.description) {
-      putData('http://localhost:8080/note/updatenote', data, headerJsonWithToken)
+        const header = headerJsonWithToken();
+      putData('http://localhost:8080/note/updatenote', data, header)
         .then(res => {
           this.props.updateTemplate(data);
         })
@@ -137,6 +138,12 @@ class Notedialog extends Component {
                 <Deletenote />
               </Menu>
             </div>
+            <Typography
+              variant="caption"
+              gutterBottom
+              style={{float:'right'}}>
+              {this.props.note.updatedDate}
+            </Typography>
             <div>
               <Button style={{ textTransform: 'capitalize', marginRight: '10px' }} onClick={this.closeDialog}>
                 Close

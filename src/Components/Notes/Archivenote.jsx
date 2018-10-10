@@ -26,8 +26,9 @@ class Archivenote extends Component {
 
   archiveNote = () => {
     console.log('archive api');
+    const header = headerUrl();
     const param = { noteId : this.props.note.noteId}
-    putParam('http://localhost:8080/note/archivenote', param, headerUrl)
+    putParam('http://localhost:8080/note/archivenote', param, header)
       .then(res => {
         this.setState({
           archive: !this.state.archive

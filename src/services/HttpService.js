@@ -52,14 +52,18 @@ function deleteReq(url, header) {
   })
 }
 
-const headerUrl = {
-  'Content-type': 'application/x-www-form-urlencoded',
-  'Authorization': JSON.parse(localStorage.getItem('fundooUser')).token
+function headerUrl() {
+  return {
+    'Content-type': 'application/x-www-form-urlencoded',
+    'Authorization': JSON.parse(localStorage.getItem('fundooUser')).token
+  }
 }
 
-const headerJsonWithToken = {
-  'Content-type': 'application/json',
-  'Authorization': JSON.parse(localStorage.getItem('fundooUser')).token
+function headerJsonWithToken() {
+  return {
+    'Content-type': 'application/json',
+    'Authorization': JSON.parse(localStorage.getItem('fundooUser')).token
+  }
 }
 
 const headerForm = {

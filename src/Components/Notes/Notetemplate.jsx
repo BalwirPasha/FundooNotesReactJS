@@ -28,8 +28,7 @@ class Notetemplate extends Component {
       isList: false,
       color: '#fff',
       moreMenu: false,
-      anchorEl: null,
-      stateTest : 614316,
+      anchorEl: null
     };
   }
 
@@ -70,6 +69,10 @@ class Notetemplate extends Component {
     })
   }
 
+  noteDeleted = () => {
+    this.props.noteDeleted(this.props.index);
+  }
+
   openMore = (event) => {
     this.setState({
       anchorEl: event.currentTarget,
@@ -92,19 +95,12 @@ class Notetemplate extends Component {
     this.refs.notedialog.closeDialog();
   }
 
-  changeState = () => {
-    console.log('state');    
-    this.setState({
-      stateTest: Math.random()
-    })
-  }
-
   render() {
     return (
       <MuiThemeProvider theme={theme}>
         <div onClick={this.changeState}>
           <Card style={{ backgroundColor: [this.state.color] }} className={this.state.isList ? 'Note-template-list' : 'Note-template'}>
-            <div style={{ margin: '0px 10px' }} onClick={this.openDialog}>
+            <div style={{ margin: '0px 10px' }}>
               <div style={{ float: 'right' }}>
                 <Pinnote ref="pinnote" togglePin={this.togglePin} note={this.props.note} />
               </div>
@@ -118,7 +114,7 @@ class Notetemplate extends Component {
               </p>
             </div>
             <div className={this.state.isList ? 'Note-template-footer-list' : 'Note-template-footer'}>
-              <Reminder stateTest={this.state.stateTest} />
+              <Reminder />
               <Collaborator />
               <Colournote changeColor={this.changeColor} note={this.props.note} />
               <Addimage />
@@ -131,7 +127,7 @@ class Notetemplate extends Component {
                 anchorEl={this.state.anchorEl}
                 onClose={this.moreMenuClose}
                 className="Note-template-menu">
-                <Deletenote />
+                <Deletenote note={this.props.note} noteDeleted={this.noteDeleted}/>
               </Menu>
             </div>
           </Card>

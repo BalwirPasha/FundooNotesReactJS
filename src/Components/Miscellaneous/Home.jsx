@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import Navbar from './Navbar';
 import Sidebar from './Sidebar';
-import TestDashboard from './TestDashboard';
+import Dashboard from './Dashboard';
 
 
 class Home extends Component {
@@ -12,6 +12,7 @@ class Home extends Component {
       unauthorizedAccess: false,
       data : []
     };
+    console.log(props.match);    
   }
 
   componentWillMount() {
@@ -26,7 +27,7 @@ class Home extends Component {
     this.refs.sidebar.toggleDrawer();
     this.refs.dashboard.toggleCss();
   }
-
+  
   toggleListView = () => {
     this.refs.dashboard.toggleListView();
   }
@@ -38,7 +39,7 @@ class Home extends Component {
       <div>
         <Navbar toggleDrawer={this.toggle} toggleListView={this.toggleListView}></Navbar>
         <Sidebar ref="sidebar"></Sidebar>
-        <TestDashboard ref="dashboard" notes={this.state.data}></TestDashboard>
+        <Dashboard ref="dashboard" match={this.props.match} notes={this.state.data}></Dashboard>
       </div>
     );
   }

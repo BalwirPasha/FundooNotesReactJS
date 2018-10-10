@@ -39,7 +39,8 @@ class Createnote extends Component {
         pin: this.state.pin,
         archive: this.state.archive
       }
-      postData('http://localhost:8080/note/createnote', note, headerJsonWithToken)
+      const header = headerJsonWithToken();
+      postData('http://localhost:8080/note/createnote', note, header)
         .then(res => {
           console.log(res.data);
           this.props.noteCreated(res.data);

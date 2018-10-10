@@ -45,11 +45,12 @@ class Colournote extends Component {
     if (this.props.note === undefined) {
       this.props.changeCreateNoteColor(color);
     } else {
+      const header = headerUrl();
       const params = {
         noteId: this.props.note.noteId,
         color: color
       }
-      putParam('http://localhost:8080/note/colornote', params, headerUrl)
+      putParam('http://localhost:8080/note/colornote', params, header)
         .then(res => {
           this.props.changeColor(color);
         })
