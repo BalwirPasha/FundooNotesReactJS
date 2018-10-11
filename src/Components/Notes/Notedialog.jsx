@@ -20,7 +20,8 @@ class Notedialog extends Component {
       description: '',
       color: '',
       anchorEl: null,
-      moreMenu: false
+      moreMenu: false,
+      isColorChanged: false
     };
   }
 
@@ -45,8 +46,7 @@ class Notedialog extends Component {
     const data = {
       noteId: this.props.note.noteId,
       title: this.state.title,
-      description: this.state.description,
-      color: this.state.color
+      description: this.state.description
     }
     if (this.state.title !== this.props.note.title ||
       this.state.description !== this.props.note.description) {
@@ -58,9 +58,14 @@ class Notedialog extends Component {
         .catch(err => {
           console.log(err.response);
         })
-    } else if (this.state.color !== this.props.note.color) {
-      this.props.updateTemplate(data);
     }
+    if (this.state.color !== this.props.color && this.state.isColorChanged) {
+      this.props.updateColor(this.state.color);
+    }
+    //to fix the issue with color not sync'ng with note template
+    this.setState({
+      isColorChanged: false
+    })
   }
 
   handleInput = (event) => {
@@ -75,7 +80,8 @@ class Notedialog extends Component {
 
   changeColor = (color) => {
     this.setState({
-      color: color
+      color: color,
+      isColorChanged: true
     });
   }
 
@@ -100,7 +106,7 @@ class Notedialog extends Component {
   render() {
     return (
       <Dialog open={this.state.open} onClose={this.closeDialog}>
-        <div style={{ backgroundColor: [this.state.color], width: '600px' }}>
+        <div style={{ backgroundColor: [`${this.state.isColorChanged ? this.state.color : this.props.color}`], width: '600px' }}>
           <div style={{ margin: '10px' }}>
             <Input disableUnderline={true}
               multiline={true}

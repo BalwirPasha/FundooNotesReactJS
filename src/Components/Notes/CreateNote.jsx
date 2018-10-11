@@ -32,18 +32,21 @@ class Createnote extends Component {
     });
     if (this.state.title !== '' || this.state.description !== '') {
       console.log('create note api');
+      console.log(this.state.pin);
       const note = {
         title: this.state.title,
         description: this.state.description,
         color: this.state.color,
-        pin: this.state.pin,
-        archive: this.state.archive
+        pinned: this.state.pin,
+        archived: this.state.archive
       }
+      console.log(note);
       const header = headerJsonWithToken();
       postData('http://localhost:8080/note/createnote', note, header)
         .then(res => {
           console.log(res.data);
-          this.props.noteCreated(res.data);
+          if (!res.data.archived)
+            this.props.noteCreated(res.data);
         })
         .catch(err => {
           console.log(err.response);
@@ -69,6 +72,7 @@ class Createnote extends Component {
   }
 
   togglePin = () => {
+    console.log('pin');
     this.setState({
       pin: !this.state.pin
     })

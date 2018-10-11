@@ -37,6 +37,7 @@ class Login extends Component {
     //this.fieldErr = false;
     this.handleInputChange = this.handleInputChange.bind(this);
     this.enableButton = this.enableButton.bind(this);
+    console.log('login');    
   }
 
   handleInputChange(e) {

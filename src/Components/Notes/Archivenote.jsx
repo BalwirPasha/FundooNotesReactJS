@@ -12,8 +12,8 @@ class Archivenote extends Component {
     };
   }
 
-  componentDidMount(){
-    if(this.props.note !== undefined && this.props.note.archived){
+  componentDidMount() {
+    if (this.props.note !== undefined && this.props.note.archived) {
       this.setState({
         archive: this.props.note.archived
       });
@@ -22,20 +22,25 @@ class Archivenote extends Component {
 
   toggleArchive = () => {
     this.props.toggleArchive();
+    this.setState({
+      archive: !this.state.archive
+    });
   }
 
   archiveNote = () => {
     console.log('archive api');
     const header = headerUrl();
-    const param = { noteId : this.props.note.noteId}
+    const param = { noteId: this.props.note.noteId }
     putParam('http://localhost:8080/note/archivenote', param, header)
       .then(res => {
+        console.log(res.data);
+        this.props.noteDeleted(this.props.note);
+      })
+      .catch(err => {
         this.setState({
           archive: !this.state.archive
         });
-      })
-      .catch(err => {
-        console.log(err.response);        
+        console.log(err.response);
       })
   }
 

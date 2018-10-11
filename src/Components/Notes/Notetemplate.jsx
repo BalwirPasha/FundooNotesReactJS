@@ -1,4 +1,4 @@
-import { Card, createMuiTheme, IconButton, Menu, MuiThemeProvider, ClickAwayListener } from '@material-ui/core';
+import { Card, ClickAwayListener, IconButton, Menu } from '@material-ui/core';
 import React, { Component } from 'react';
 import '../../assets/css/note.css';
 import more from '../../assets/icons/more.svg';
@@ -10,16 +10,6 @@ import Deletenote from './Deletenote';
 import Notedialog from './Notedialog';
 import Pinnote from './Pinnote';
 import Reminder from './Reminder';
-
-const theme = createMuiTheme({
-  overrides: {
-    MuiMenu: {
-      paper: {
-        marginTop: '50px'
-      }
-    }
-  }
-});
 
 class Notetemplate extends Component {
   constructor(props) {
@@ -64,13 +54,19 @@ class Notetemplate extends Component {
   updateTemplate = (newNote) => {
     this.setState({
       title: newNote.title,
-      description: newNote.description,
-      color: newNote.color
+      description: newNote.description
     })
   }
 
-  noteDeleted = () => {
-    this.props.noteDeleted(this.props.index);
+  updateColor = (color) => {
+    this.setState({
+      color: color
+    })
+  }
+
+  noteDeleted = (note) => {
+    // note can either be a note object or index from deletenote comp
+    this.props.noteDeleted(note);
   }
 
   openMore = (event) => {
@@ -97,7 +93,7 @@ class Notetemplate extends Component {
 
   render() {
     return (
-      <MuiThemeProvider theme={theme}>
+      <div>
         <div onClick={this.changeState}>
           <Card style={{ backgroundColor: [this.state.color] }} className={this.state.isList ? 'Note-template-list' : 'Note-template'}>
             <div style={{ margin: '0px 10px' }}>
@@ -118,7 +114,7 @@ class Notetemplate extends Component {
               <Collaborator />
               <Colournote changeColor={this.changeColor} note={this.props.note} />
               <Addimage />
-              <Archivenote ref="archivenote" toggleArchive={this.toggleArchive} note={this.props.note} />
+              <Archivenote ref="archivenote" toggleArchive={this.toggleArchive} note={this.props.note} noteDeleted={this.noteDeleted} />
               <IconButton onClick={this.openMore}>
                 <img src={more} alt="menu" />
               </IconButton>
@@ -126,16 +122,20 @@ class Notetemplate extends Component {
                 open={this.state.moreMenu}
                 anchorEl={this.state.anchorEl}
                 onClose={this.moreMenuClose}
-                className="Note-template-menu">
-                <Deletenote note={this.props.note} noteDeleted={this.noteDeleted}/>
+              >
+                <Deletenote note={this.props.note} noteDeleted={this.noteDeleted} index={this.props.index} />
               </Menu>
             </div>
           </Card>
         </div>
         <ClickAwayListener onClickAway={this.closeDialog}>
-          <Notedialog ref="notedialog" updateTemplate={this.updateTemplate} note={this.props.note} />
+          <Notedialog ref="notedialog"
+            updateColor={this.updateColor}
+            updateTemplate={this.updateTemplate}
+            note={this.props.note}
+            color={this.state.color} />
         </ClickAwayListener>
-      </MuiThemeProvider>
+      </div>
     );
   }
 }

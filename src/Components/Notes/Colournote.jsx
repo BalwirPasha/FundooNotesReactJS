@@ -58,6 +58,7 @@ class Colournote extends Component {
           console.log(err.response);
         });
     }
+    this.setState({ anchorEl: null })
   }
 
   render() {

@@ -12,7 +12,6 @@ class Home extends Component {
       unauthorizedAccess: false,
       data : []
     };
-    console.log(props.match);    
   }
 
   componentWillMount() {

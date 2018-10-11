@@ -1,10 +1,11 @@
-import { Drawer, createMuiTheme, MuiThemeProvider, Button, List, ListItem, ListItemIcon, ListItemText, Divider } from '@material-ui/core';
+import { Button, createMuiTheme, Divider, Drawer, List, ListItem, ListItemIcon, ListItemText, MuiThemeProvider } from '@material-ui/core';
 import React, { Component } from 'react';
-import notes from '../../assets/icons/note.svg';
-import label from '../../assets/icons/label.svg';
 import archive from '../../assets/icons/archive.svg';
 import trash from '../../assets/icons/delete.svg';
+import label from '../../assets/icons/label.svg';
+import notes from '../../assets/icons/note.svg';
 import reminder from '../../assets/icons/reminder.svg';
+import { Link } from 'react-router-dom'
 
 const theme = createMuiTheme({
   overrides: {
@@ -14,6 +15,13 @@ const theme = createMuiTheme({
         height: 'calc(100% - 64px)',
         backgroundColor: 'rgb(236, 236, 236)',
         width: '280px',
+      }
+    },
+    MuiButton: {
+      label: {
+        textTransform: 'capitalize',
+      },
+      text: {
       }
     }
   }
@@ -36,7 +44,7 @@ class Sidebar extends Component {
 
   render() {
     const testLabels = [];
-    for(let i=0; i<5; i++){
+    for (let i = 0; i < 5; i++) {
       testLabels.push(<ListItem key={i} button>
         <ListItemIcon>
           <img src={label} alt="label" />
@@ -53,18 +61,18 @@ class Sidebar extends Component {
               open={this.state.left}
             >
               <List>
-                <ListItem button>
-                  <ListItemIcon>
-                    <img src={notes} alt="notes" />
-                  </ListItemIcon>
-                  <ListItemText>Notes</ListItemText>
-                </ListItem>
-                <ListItem button>
+                <Link to="/home">
+                  <Button style={{ width: '100%', height: '50px', display: 'flex', justifyContent: 'start' }}>
+                    <img src={notes} alt="notes" style={{ marginRight: '30px' }} />
+                    <span>Notes</span>
+                  </Button>
+                </Link>
+                <Button href="agasdgda" style={{ width: '100%', height: '50px' }}>
                   <ListItemIcon>
                     <img src={reminder} alt="reminder" />
                   </ListItemIcon>
-                  <ListItemText>Reminders</ListItemText>
-                </ListItem>
+                  <ListItemText style={{ fontSize: '12px' }}>Reminders</ListItemText>
+                </Button>
               </List>
               <Divider></Divider>
               <List>
@@ -72,7 +80,7 @@ class Sidebar extends Component {
                   <div style={{ marginTop: '8px', marginLeft: '15px' }}>
                     Labels
                   </div>
-                  <Button size="small" style={{ marginRight: '20px' }}>
+                  <Button href="/home/asfasg" size="small" style={{ marginRight: '20px' }}>
                     Edit
                   </Button>
                 </div>
@@ -80,18 +88,18 @@ class Sidebar extends Component {
               </List>
               <Divider></Divider>
               <List>
-                <ListItem button>
-                  <ListItemIcon>
-                    <img src={archive} alt="archive" />
-                  </ListItemIcon>
-                  <ListItemText>Archive</ListItemText>
-                </ListItem>
-                <ListItem button>
-                  <ListItemIcon>
-                    <img src={trash} alt="trash" />
-                  </ListItemIcon>
-                  <ListItemText>Trash</ListItemText>
-                </ListItem>
+                <Link to='/home/archive'>
+                  <Button style={{ width: '100%', height: '50px', display: 'flex', justifyContent: 'start' }}>
+                    <img src={archive} alt="archive" style={{ marginRight: '30px' }} />
+                    <span>Archive</span>
+                  </Button>
+                </Link>
+                <Link to='/home/trash'>
+                  <Button style={{ width: '100%', height: '50px', display: 'flex', justifyContent: 'start' }}>
+                    <img src={trash} alt="trash" style={{ marginRight: '30px' }} />
+                    <span>Trash</span>
+                  </Button>
+                </Link>
               </List>
             </Drawer>
           </MuiThemeProvider>

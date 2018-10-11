@@ -78,3 +78,7 @@
   padding-left: 10px;
   flex-grow: 8;
 }
+
+:link {
+  text-decoration: none;
+}

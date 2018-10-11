@@ -17,21 +17,23 @@ class Dashboard extends Component {
   }
 
   toggleCss = () => {
-    Object.entries(this.refs).forEach(([key, value]) => {
-      if (value.refs.routechild !== undefined)
-        value.refs.routechild.toggleSidebar();
-    });
+    // Object.entries(this.refs).forEach(([key, value]) => {
+    //   if (value.refs.routechild !== undefined)
+    //     value.refs.routechild.toggleSidebar();
+    // });
+    this.routechild.toggleSidebar();
   }
 
   toggleListView = () => {
-    Object.entries(this.refs).forEach(([key, value]) => {
-      if (value.refs.routechild !== undefined)
-        value.refs.routechild.toggleListView();
-    });
+    // Object.entries(this.refs).forEach(([key, value]) => {
+    //   if (value.refs.routechild !== undefined)
+    //     value.refs.routechild.toggleListView();
+    // });
+    this.routechild.toggleListView();
   }
 
   componentDidMount() {
-    this.getAllNotes();
+    //this.getAllNotes();
   }
 
   getAllNotes = () => {
@@ -78,9 +80,9 @@ class Dashboard extends Component {
   render() {
     return (
       <div>
-        <Route exact path={this.props.match.path} render={() => <Notes ref="routechild" />} ref="noteroute"></Route>
-        <Route path={`${this.props.match.path}/archive`} render={() => <Archive ref="routechild" />} ref="archiveroute"></Route>
-        <Route path={`${this.props.match.path}/trash`} render={() => <Trash ref="routechild" />} ref="trashroute"></Route>
+        <Route exact path={this.props.match.path} render={() => <Notes ref={routechild => this.routechild = routechild} />}></Route>
+        <Route path={`${this.props.match.path}/archive`} render={() => <Archive ref={routechild => this.routechild = routechild} />}></Route>
+        <Route path={`${this.props.match.path}/trash`} render={() => <Trash ref={routechild => this.routechild = routechild} />}></Route>
 
         {/* <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
           {this.state.notes}

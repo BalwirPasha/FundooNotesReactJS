@@ -12,8 +12,11 @@ class Pinnote extends Component {
     };
   }
 
-  togglePin = () => {    
+  togglePin = () => {
     this.props.togglePin();
+    this.setState({
+      isPinned: !this.state.isPinned
+    });
   }
 
   pinNote = (note) => {
@@ -21,11 +24,12 @@ class Pinnote extends Component {
     const header = headerUrl();
     putParam('http://localhost:8080/note/pinnote', param, header)
       .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
         this.setState({
           isPinned: !this.state.isPinned
         });
-      })
-      .catch(err => {
         console.log(err.response);        
       })
   }
