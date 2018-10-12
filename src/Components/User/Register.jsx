@@ -43,8 +43,8 @@ class Register extends Component {
       .then((res) => {
         console.log(res.data);
         this.setState({
-          emailErr : 'Succesfully registered, please verify your account. Verification link has been sent to your email.',
-          displayCard : false
+          emailErr: 'Succesfully registered, please verify your account. Verification link has been sent to your email.',
+          displayCard: false
         });
       })
       .catch((err) => {
@@ -55,8 +55,8 @@ class Register extends Component {
           });
         } else {
           this.setState({
-            emailErr : 'There was some problem in registration, please try again later.',
-            displayCard : false
+            emailErr: 'There was some problem in registration, please try again later.',
+            displayCard: false
           });
         }
       });
@@ -189,7 +189,7 @@ class Register extends Component {
                   <Typography
                     variant="headline"
                     gutterBottom
-                    style={{color: 'red'}}
+                    style={{ color: 'red' }}
                   >
                     {this.state.emailErr}
                   </Typography>

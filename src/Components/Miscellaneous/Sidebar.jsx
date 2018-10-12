@@ -1,11 +1,12 @@
-import { Button, createMuiTheme, Divider, Drawer, List, ListItem, ListItemIcon, ListItemText, MuiThemeProvider } from '@material-ui/core';
+import { Button, Divider, Drawer, List, ListItem, ListItemIcon, ListItemText, MuiThemeProvider, createMuiTheme } from '@material-ui/core';
 import React, { Component } from 'react';
 import archive from '../../assets/icons/archive.svg';
 import trash from '../../assets/icons/delete.svg';
 import label from '../../assets/icons/label.svg';
 import notes from '../../assets/icons/note.svg';
 import reminder from '../../assets/icons/reminder.svg';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import EditLabelDialog from '../Notes/EditLabelDialog';
 
 const theme = createMuiTheme({
   overrides: {
@@ -42,6 +43,11 @@ class Sidebar extends Component {
     });
   };
 
+  changeTitle = (title) => {
+    console.log(title);
+    this.props.changeTitle(title);
+  }
+
   render() {
     const testLabels = [];
     for (let i = 0; i < 5; i++) {
@@ -67,7 +73,8 @@ class Sidebar extends Component {
                     <span>Notes</span>
                   </Button>
                 </Link>
-                <Button href="agasdgda" style={{ width: '100%', height: '50px' }}>
+                {/* href will re-mount all components hence to be used with caution */}
+                <Button href="/home/agasdgda" style={{ width: '100%', height: '50px' }}>
                   <ListItemIcon>
                     <img src={reminder} alt="reminder" />
                   </ListItemIcon>
@@ -80,7 +87,7 @@ class Sidebar extends Component {
                   <div style={{ marginTop: '8px', marginLeft: '15px' }}>
                     Labels
                   </div>
-                  <Button href="/home/asfasg" size="small" style={{ marginRight: '20px' }}>
+                  <Button onClick={() => this.labeldialog.openLabelDialog()} size="small" style={{ marginRight: '20px' }}>
                     Edit
                   </Button>
                 </div>
@@ -94,7 +101,7 @@ class Sidebar extends Component {
                     <span>Archive</span>
                   </Button>
                 </Link>
-                <Link to='/home/trash'>
+                <Link to='/home/trash' onClick={this.changeTitle('Archive')}>
                   <Button style={{ width: '100%', height: '50px', display: 'flex', justifyContent: 'start' }}>
                     <img src={trash} alt="trash" style={{ marginRight: '30px' }} />
                     <span>Trash</span>
@@ -104,6 +111,7 @@ class Sidebar extends Component {
             </Drawer>
           </MuiThemeProvider>
         </div>
+        <EditLabelDialog ref={labeldialog => {this.labeldialog = labeldialog}} />
       </div>
     );
   }

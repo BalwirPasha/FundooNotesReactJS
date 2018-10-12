@@ -30,7 +30,8 @@ class Navbar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      list: false
+      list: false,
+      title: 'Fundoo Notes'
     };
   }
 
@@ -43,6 +44,12 @@ class Navbar extends Component {
       list: !this.state.list
     });
     this.props.toggleListView();
+  }
+
+  changeTitle = (title) => {
+    this.setState({
+      title: title
+    });
   }
 
   render() {
@@ -63,7 +70,7 @@ class Navbar extends Component {
               </Tooltip>
               <div className="Title-heading">
                 <Typography variant="title">
-                  Fundoo Notes
+                  {this.state.title}
                 </Typography>
               </div>
               <div style={{ flexGrow: 50 }}>

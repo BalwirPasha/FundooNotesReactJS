@@ -31,13 +31,18 @@ class Home extends Component {
     this.refs.dashboard.toggleListView();
   }
 
+  changeTitle = (title) => {
+    console.log(title);
+    console.log(this.nav);
+  }
+
   render() {
     if (this.state.unauthorizedAccess === true)
       return <Redirect to='/login' />
     return (
       <div>
-        <Navbar toggleDrawer={this.toggle} toggleListView={this.toggleListView}></Navbar>
-        <Sidebar ref="sidebar"></Sidebar>
+        <Navbar innerRef={nav => this.nav = nav} toggleDrawer={this.toggle} toggleListView={this.toggleListView}></Navbar>
+        <Sidebar ref="sidebar" changeTitle={this.changeTitle}></Sidebar>
         <Dashboard ref="dashboard" match={this.props.match} notes={this.state.data}></Dashboard>
       </div>
     );

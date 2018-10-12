@@ -61,7 +61,7 @@ class Notes extends Component {
   }
 
   noteDeleted = (note) => {
-    console.log(note);    
+    console.log(note);
   }
 
   render() {
