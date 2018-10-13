@@ -32,8 +32,7 @@ class Home extends Component {
   }
 
   changeTitle = (title) => {
-    console.log(title);
-    console.log(this.nav);
+    this.nav.changeTitle(title);
   }
 
   render() {

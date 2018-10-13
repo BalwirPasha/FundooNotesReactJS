@@ -65,6 +65,8 @@ class Notes extends Component {
   }
 
   render() {
+    console.log(this.state.rawNotes);
+    
     return (
       <div className={this.state.isSidebarOpen ? "Dash-with-side" : "Dash-wo-side"}>
         <Createnote noteCreated={this.noteCreated} />
