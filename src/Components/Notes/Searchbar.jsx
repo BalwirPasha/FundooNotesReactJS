@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Input } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 
-class Search extends Component {
+class Searchbar extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -26,4 +26,4 @@ class Search extends Component {
   }
 }
 
-export default Search;
+export default Searchbar;

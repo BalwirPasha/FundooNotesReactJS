@@ -15,12 +15,12 @@ class Deletenote extends Component {
     // const header = headerUrl();
     // deleteReq('http://localhost:8080/note/deletenote/'+this.props.note.noteId, header)
     //   .then(res => {
-    //     this.props.noteDeleted(this.props.index);
+    //     this.props.noteDeleted(this.props.note);
     //   })
     //   .catch(err => {
     //     console.log(err.response);        
     //   });
-    //this.props.noteDeleted();
+    this.props.noteDeleted(this.props.note);
   }
 
   render() {

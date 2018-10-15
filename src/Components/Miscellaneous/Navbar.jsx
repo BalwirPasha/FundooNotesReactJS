@@ -8,7 +8,7 @@ import grid from '../../assets/icons/grid.svg';
 import notifications from '../../assets/icons/notifications.svg';
 import person from '../../assets/icons/person.svg';
 import refresh from '../../assets/icons/refresh.svg';
-import Search from '../Notes/Search';
+import Searchbar from '../Notes/Searchbar';
 import UserProfile from './UserProfile';
 
 const styles = {
@@ -74,7 +74,7 @@ class Navbar extends Component {
                 </Typography>
               </div>
               <div style={{ flexGrow: 50 }}>
-                <Search />
+                <Searchbar />
               </div>
               <div className="Navbar-icons Refresh-list">
                 <div>

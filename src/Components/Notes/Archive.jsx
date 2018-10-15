@@ -6,7 +6,6 @@ class Archive extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isSidebarOpen: true,
       rawNotes: [],
       notes: []
     };
@@ -17,12 +16,6 @@ class Archive extends Component {
     this.notetemplate.forEach(notetemplate => {
       notetemplate.toggleListView();
     });
-  }
-
-  toggleSidebar = () => {
-    this.setState({
-      isSidebarOpen: !this.state.isSidebarOpen
-    })
   }
 
   componentDidMount() {
@@ -36,11 +29,11 @@ class Archive extends Component {
         this.setState({
           rawNotes: res.data,
           notes: res.data.filter(note => (!note.trashed && note.archived)).map((note, index) => {
-              return <Notetemplate ref={notetemplate => this.notetemplate[index] = notetemplate} key={note.noteId}
-                note={note} index={index} noteDeleted={this.noteDeleted} getAllNotes={this.getAllNotes}/>
-          // notes: res.data.map((note, index) => {
-          //   return <Notetemplate ref={notetemplate => this.notetemplate[index] = notetemplate} key={note.noteId}
-          //     note={note} index={index} noteDeleted={this.noteDeleted}/>
+            return <Notetemplate ref={notetemplate => this.notetemplate[index] = notetemplate} key={note.noteId}
+              note={note} index={index} noteDeleted={this.noteDeleted} />
+            // notes: res.data.map((note, index) => {
+            //   return <Notetemplate ref={notetemplate => this.notetemplate[index] = notetemplate} key={note.noteId}
+            //     note={note} index={index} noteDeleted={this.noteDeleted}/>
           })
         });
       })
@@ -49,16 +42,20 @@ class Archive extends Component {
       });
   }
 
+  noteDeleted = (note) => {
+    this.setState({
+      notes: this.state.notes.filter(noteView => (parseInt(noteView.key, 10) !== note.noteId))
+    })
+  }
+
   render() {
     return (
       <div>
-        <div className={this.state.isSidebarOpen ? "Dash-with-side" : "Dash-wo-side"}>
-          <div>
-            <h2>This is test attempt to check dashboard's response w.r.t sidebar toggle.</h2>
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
-            {this.state.notes}
-          </div>
+        <div>
+          <h2>This is test attempt to check dashboard's response w.r.t sidebar toggle.</h2>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
+          {this.state.notes}
         </div>
       </div>
     );

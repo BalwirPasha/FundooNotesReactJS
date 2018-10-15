@@ -42,7 +42,7 @@ class Home extends Component {
       <div>
         <Navbar innerRef={nav => this.nav = nav} toggleDrawer={this.toggle} toggleListView={this.toggleListView}></Navbar>
         <Sidebar ref="sidebar" changeTitle={this.changeTitle}></Sidebar>
-        <Dashboard ref="dashboard" match={this.props.match} notes={this.state.data}></Dashboard>
+        <Dashboard ref="dashboard" dash={this.props} notes={this.state.data}></Dashboard>
       </div>
     );
   }

@@ -7,11 +7,11 @@ class Notes extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isSidebarOpen: true,
       rawNotes: [],
       notes: []
     };
     this.notetemplate = [];
+    console.log('notes');    
   }
 
   componentDidMount() {
@@ -24,12 +24,6 @@ class Notes extends Component {
     });
   }
 
-  toggleSidebar = () => {
-    this.setState({
-      isSidebarOpen: !this.state.isSidebarOpen
-    })
-  }
-
   getAllNotes = () => {
     const header = headerJsonWithToken();
     get('http://localhost:8080/note/getallnotes', header)
@@ -38,7 +32,7 @@ class Notes extends Component {
           rawNotes: res.data,
           notes: res.data.filter(note => (!note.trashed && !note.archived)).map((note, index) => {
               return <Notetemplate ref={notetemplate => this.notetemplate[index] = notetemplate} key={note.noteId}
-                note={note} index={index} noteDeleted={this.noteDeleted} getAllNotes={this.getAllNotes}/>
+                note={note} index={note.noteId} noteDeleted={this.noteDeleted} noteCreated={this.noteCreated}/>
           // notes: res.data.map((note, index) => {
           //   return <Notetemplate ref={notetemplate => this.notetemplate[index] = notetemplate} key={note.noteId}
           //     note={note} index={index} noteDeleted={this.noteDeleted}/>
@@ -51,24 +45,23 @@ class Notes extends Component {
   }
 
   noteCreated = (note) => {
-    console.log(note);
     let notesArr = this.state.notes;
     notesArr.unshift(<Notetemplate ref={notetemplate => this.notetemplate.push(notetemplate)} key={note.noteId}
-      note={note} index={this.state.notes.length} noteDeleted={this.noteDeleted} />)
+      note={note} index={note.noteId} noteDeleted={this.noteDeleted} noteCreated={this.noteCreated}/>)
     this.setState({
       notes: notesArr
     })
   }
 
   noteDeleted = (note) => {
-    console.log(note);
+    this.setState({
+      notes: this.state.notes.filter(noteView => (parseInt(noteView.key, 10) !== note.noteId))
+    })
   }
 
   render() {
-    console.log(this.state.rawNotes);
-    
     return (
-      <div className={this.state.isSidebarOpen ? "Dash-with-side" : "Dash-wo-side"}>
+      <div>
         <Createnote noteCreated={this.noteCreated} />
         <div>
           <h2>This is test attempt to check dashboard's response w.r.t sidebar toggle.</h2>

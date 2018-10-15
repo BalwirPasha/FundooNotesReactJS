@@ -27,6 +27,8 @@ class Createnote extends Component {
   }
 
   toggleCreateNote = () => {
+    console.log('test');
+    
     this.setState({
       createNote: !this.state.createNote
     });
@@ -44,7 +46,6 @@ class Createnote extends Component {
       const header = headerJsonWithToken();
       postData('http://localhost:8080/note/createnote', note, header)
         .then(res => {
-          console.log(res.data);
           if (!res.data.archived)
             this.props.noteCreated(res.data);
         })

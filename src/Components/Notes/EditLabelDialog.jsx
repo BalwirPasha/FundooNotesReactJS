@@ -1,7 +1,9 @@
 import { Button, createMuiTheme, Dialog, DialogActions, DialogContent, Divider, IconButton, Input, MuiThemeProvider } from '@material-ui/core';
 import React, { Component } from 'react';
 import check from '../../assets/icons/check.svg';
+import del from '../../assets/icons/delete.svg';
 import close from '../../assets/icons/close.svg';
+import draw from '../../assets/icons/draw.svg';
 import { postData, headerJsonWithToken, deleteReq, putParam, headerUrl } from '../../services/HttpService';
 
 const theme = createMuiTheme({
@@ -53,7 +55,7 @@ class EditLabelDialog extends Component {
 
   labelCreated = async (label) => {
     let labelsView = this.state.labelsView;
-    labelsView.push(<LabelX label={label} key={label.labelId} labelDeleted={this.labelDeleted} labelUpdated={this.labelUpdated}/>)
+    labelsView.push(<LabelX label={label} key={label.labelId} labelDeleted={this.labelDeleted} labelUpdated={this.labelUpdated} />)
     await this.setState({
       createLabelField: "",
       labelsView: labelsView
@@ -130,7 +132,8 @@ class LabelX extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      labelName: props.label.labelName
+      labelName: props.label.labelName,
+      isSelected: false
     }
   }
 
@@ -143,6 +146,12 @@ class LabelX extends Component {
   handleInputChange = (event) => {
     this.setState({
       [event.target.name]: event.target.value
+    })
+  }
+
+  selectTrue = () => {
+    this.setState({
+      isSelected: true
     })
   }
 
@@ -171,25 +180,31 @@ class LabelX extends Component {
           this.props.labelUpdated(label);
         })
         .catch(err => {
-          console.log(err.response);          
+          console.log(err.response);
         })
     }
+    this.setState({
+      isSelected: !this.state.isSelected
+    })
   }
 
   render() {
     return (
-      <div>
+      <div style={{display: 'flex', justifyContent:'space-between'}}>
         <IconButton onClick={this.deleteLabel}>
-          <img src={close} alt="close" />
+          <img src={del} alt="close" />
         </IconButton>
-        <Input name="labelName"
-          disableUnderline={true}
-          value={this.state.labelName}
-          onChange={this.handleInputChange}>
-        </Input>
-        <IconButton onClick={this.updateLabel}>
-          <img src={check} alt="check" />
-        </IconButton>
+        <div>
+          <Input name="labelName"
+            disableUnderline={!this.state.isSelected}
+            value={this.state.labelName}
+            onChange={this.handleInputChange}
+            onClick={this.selectTrue}>
+          </Input>
+          <IconButton onClick={this.updateLabel}>
+            <img src={this.state.isSelected ? check : draw} alt="check" />
+          </IconButton>
+        </div>
       </div>
     );
   }

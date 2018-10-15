@@ -21,7 +21,7 @@ const theme = createMuiTheme({
     },
     MuiButton: {
       label: {
-        textTransform: 'capitalize',
+        textTransform: 'none',
       },
       text: {
       }

@@ -3,6 +3,7 @@ import Notetemplate from '../Notes/Notetemplate';
 import Notes from '../Notes/Notes';
 import Archive from '../Notes/Archive';
 import Trash from '../Notes/Trash';
+import Label from '../Notes/Label';
 import { get, headerJsonWithToken } from '../../services/HttpService';
 import { Route } from 'react-router-dom'
 
@@ -11,7 +12,8 @@ class Dashboard extends Component {
     super(props);
     this.state = {
       notes: [],
-      allNotes: []
+      allNotes: [],
+      isSidebarOpen: true
     };
     this.notetemplate = [];
   }
@@ -21,7 +23,10 @@ class Dashboard extends Component {
     //   if (value.refs.routechild !== undefined)
     //     value.refs.routechild.toggleSidebar();
     // });
-    this.routechild.toggleSidebar();
+    //this.routechild.toggleSidebar();
+    this.setState({
+      isSidebarOpen: !this.state.isSidebarOpen
+    })
   }
 
   toggleListView = () => {
@@ -78,11 +83,13 @@ class Dashboard extends Component {
   }
 
   render() {
+    console.log(this.props);
     return (
-      <div>
-        <Route exact path={this.props.match.path} render={() => <Notes ref={routechild => this.routechild = routechild} />}></Route>
-        <Route path={`${this.props.match.path}/archive`} render={() => <Archive ref={routechild => this.routechild = routechild} />}></Route>
-        <Route path={`${this.props.match.path}/trash`} render={() => <Trash ref={routechild => this.routechild = routechild} />}></Route>
+      <div className={this.state.isSidebarOpen ? "Dash-with-side" : "Dash-wo-side"}>
+        <Route exact path={this.props.dash.match.path} render={() => <Notes ref={routechild => this.routechild = routechild} />}></Route>
+        <Route path={`${this.props.dash.match.path}/archive`} render={() => <Archive ref={routechild => this.routechild = routechild} />}></Route>
+        <Route path={`${this.props.dash.match.path}/trash`} render={() => <Trash ref={routechild => this.routechild = routechild} />}></Route>
+        <Route path={`${this.props.dash.match.path}/label`} render={() => <Label ref={routechild => this.routechild = routechild} loc={this.props.dash.location}/>}></Route>
 
         {/* <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
           {this.state.notes}

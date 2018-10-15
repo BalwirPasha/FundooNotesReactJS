@@ -65,7 +65,6 @@ class Notetemplate extends Component {
   }
 
   noteDeleted = (note) => {
-    // note can either be a note object or index from deletenote comp
     this.props.noteDeleted(note);
   }
 
