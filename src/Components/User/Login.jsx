@@ -60,15 +60,15 @@ class Login extends Component {
         })
       })
       .catch((err) => {
-        if (err.response.data.message === 'Incorrect Password')
+        if (err.response.data === 'Incorrect Password')
           this.setState({
             emailErr: 'Incorrect Password'
           });
-        if (err.response.data.message === 'Invalid Email Id')
+        if (err.response.data === 'Invalid Email Id')
           this.setState({
             emailErr: 'Invalid Email Id'
           });
-        if (err.response.data.message === 'Please Activate Account First')
+        if (err.response.data === 'Please Activate Account First')
           this.setState({
             emailErr: 'Please Activate Account First'
           });
